@@ -113,11 +113,12 @@ public class OpenshiftIT{
                 response = RestAssured
                     .when()
                     .get(ingressGatewayURL + appUrl + dataUrlSuffix);
+                System.out.println("response: " + i + "  " + response.asString());
                tries++;
                if (response.statusCode() != 200) {
-                   Thread.sleep(10); //wait for service to recover
+                   Thread.sleep(100); //wait for service to recover
                }
-            } while (response.statusCode() != 200 && tries <= 3);
+            } while (response.statusCode() != 200 && tries <= 100);
 
             if (response.statusCode() != 200) {
                 throw new Exception("Unable to get data from service, response code: " + response.statusCode());
