@@ -114,6 +114,7 @@ public class OpenshiftIT{
                     .when()
                     .get(ingressGatewayURL + appUrl + dataUrlSuffix);
                tries++;
+               System.out.println("response: " + i +" " + response.asString());
                if (response.statusCode() != 200) {
                    Thread.sleep(10); //wait for service to recover
                }
