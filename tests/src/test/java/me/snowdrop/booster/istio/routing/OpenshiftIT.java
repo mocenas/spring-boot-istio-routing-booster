@@ -139,15 +139,24 @@ public class OpenshiftIT{
     private void waitUntilApplicationIsReady() {
         await()
                 .pollInterval(1, TimeUnit.SECONDS)
-                .atMost(1, TimeUnit.MINUTES)
+                .atMost(5, TimeUnit.MINUTES)
                 .untilAsserted(() ->
-                        RestAssured
+                        {
+                            Response response = RestAssured
+                                    .given()
+                                    .baseUri(ingressGatewayURL.toString())
+                                    .when()
+                                    .get(appUrl + dataUrlSuffix);
+                            System.out.println(response.asString());
+                            Assert.assertEquals(200,response.statusCode());
+                        }
+/*                        RestAssured
                                 .given()
                                 .baseUri(ingressGatewayURL.toString())
                                 .when()
                                 .get(appUrl + dataUrlSuffix)
                                 .then()
-                                .statusCode(200)
+                                .statusCode(200)*/
                 );
     }
 }
