@@ -139,7 +139,7 @@ public class OpenshiftIT{
     private void waitUntilApplicationIsReady() {
         await()
                 .pollInterval(1, TimeUnit.SECONDS)
-                .atMost(5, TimeUnit.MINUTES)
+                .atMost(30, TimeUnit.MINUTES)
                 .untilAsserted(() ->
                         {
                             Response response = RestAssured
